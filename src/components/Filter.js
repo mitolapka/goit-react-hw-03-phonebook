@@ -1,0 +1,19 @@
+import { Label, Div} from './MyForm.styled'
+import React from 'react';
+
+const Filter = ({ value, onChange }) => {
+    return (
+        <Div>
+            <Label htmlFor="filter">Search by name:</Label>
+            <input
+                type="text"
+                name="filter"
+                id="filter"
+                value={value}
+                onChange={onChange}
+            />
+        </Div>
+    );
+};
+
+export default Filter;
