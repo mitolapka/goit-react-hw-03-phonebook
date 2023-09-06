@@ -2,7 +2,7 @@ import { Label, Div, Button, DivName } from './MyForm.styled'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { v4 as uuidv4 } from 'uuid';
 
-const ContactForm = ({ contacts, onSubmit }) => {
+export const ContactForm = ({ contacts, onSubmit }) => {
     const validateName = value => {
         let errorMessage;
         if (!value) {
@@ -77,4 +77,4 @@ const ContactForm = ({ contacts, onSubmit }) => {
     );
 };
 
-export default ContactForm;
+

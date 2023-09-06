@@ -1,5 +1,5 @@
 import { Button} from './MyForm.styled'
-const ContactItem = ({ id, name, number, onDelete }) => {
+export const ContactItem = ({ id, name, number, onDelete }) => {
     return (
         <li>
             {name}: {number}
@@ -8,4 +8,4 @@ const ContactItem = ({ id, name, number, onDelete }) => {
     );
 };
 
-export default ContactItem;
+

@@ -1,6 +1,6 @@
-import ContactItem from './ContactItem';
+import { ContactItem } from './ContactItem';
 
-const ContactList = ({ contacts, onDeleteContact }) => {
+export const ContactList = ({ contacts, onDeleteContact }) => {
     return (
         <ul>
             {contacts.map(contact => (
@@ -16,4 +16,3 @@ const ContactList = ({ contacts, onDeleteContact }) => {
     );
 };
 
-export default ContactList;

@@ -1,7 +1,7 @@
 import { Label, Div} from './MyForm.styled'
 import React from 'react';
 
-const Filter = ({ value, onChange }) => {
+export const Filter = ({ value, onChange }) => {
     return (
         <Div>
             <Label htmlFor="filter">Search by name:</Label>
@@ -16,4 +16,3 @@ const Filter = ({ value, onChange }) => {
     );
 };
 
-export default Filter;
