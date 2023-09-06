@@ -7,66 +7,32 @@ export class App extends Component {
     state = {
         contacts: [],
         filter: '',
-        loading: false, 
+        loading: false,
     };
 
-    async componentDidMount() {
+    componentDidMount() {
         this.setState({ loading: true });
-        try {
-            const response = await fetch('https://64f44f85932537f4051a3e4d.mockapi.io/phonebook');
-            if (!response.ok) {
-                throw new Error('Failed to fetch contacts');
-            }
-            const contactsList = await response.json();
-            this.setState({ contacts: contactsList });
-        } catch (error) {
-            console.error('Error fetching contacts:', error);
-        } finally {
-            this.setState({ loading: false });
+        const savedContacts = localStorage.getItem('contacts');
+        if (savedContacts) {
+            this.setState({ contacts: JSON.parse(savedContacts) });
         }
+        this.setState({ loading: false });
     }
 
-    handleContactSubmit = async newContact => {
-        this.setState({ loading: true });
-        try {
-            const response = await fetch('https://64f44f85932537f4051a3e4d.mockapi.io/phonebook', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newContact),
-            });
-            if (!response.ok) {
-                throw new Error('Failed to add contact');
-            }
-            const addedContact = await response.json();
-            this.setState(prevState => ({
-                contacts: [...prevState.contacts, addedContact],
-            }));
-        } catch (error) {
-            console.error('Error adding contact:', error);
-        } finally {
-            this.setState({ loading: false });
-        }
+    handleContactSubmit = newContact => {
+        this.setState(prevState => ({
+            contacts: [...prevState.contacts, newContact],
+        }), () => {
+            localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+        });
     };
 
-    handleContactDelete = async contactId => {
-        this.setState({ loading: true });
-        try {
-            const response = await fetch(`https://64f44f85932537f4051a3e4d.mockapi.io/phonebook/${contactId}`, {
-                method: 'DELETE',
-            });
-            if (!response.ok) {
-                throw new Error('Failed to delete contact');
-            }
-            this.setState(prevState => ({
-                contacts: prevState.contacts.filter(contact => contact.id !== contactId),
-            }));
-        } catch (error) {
-            console.error('Error deleting contact:', error);
-        } finally {
-            this.setState({ loading: false });
-        }
+    handleContactDelete = contactId => {
+        this.setState(prevState => ({
+            contacts: prevState.contacts.filter(contact => contact.id !== contactId),
+        }), () => {
+            localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+        });
     };
 
     handleFilterChange = event => {
@@ -94,4 +60,3 @@ export class App extends Component {
         );
     }
 }
-
